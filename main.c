@@ -39,7 +39,7 @@ void insertNode (int position ,int item, struct node **ptrtohead)
 
 int main()
 {
-
+    // Create Linked list
     struct node *head= NULL, *temp, *constanthead;
     int n ;
     int i ;
@@ -64,8 +64,11 @@ int main()
         head->item = item;
         head->nxt = NULL;
     }
+    //Print link list
     printNode(constanthead);
+    //Add a node
     insertNode(0,10,ptrtohead);
+    //Print changed linked list
     printNode(constanthead);
 
 }
