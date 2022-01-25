@@ -5,6 +5,14 @@ struct node {
         int item;
     };
 
+void printList(struct node* head) {
+  while (head != NULL) {
+    printf("%d -> ", head->item);
+    head = head->nxt;
+  }
+  printf("NULL\n");
+}
+
 void printNode(struct node *head)
 {
     while(head!= NULL)
@@ -17,19 +25,16 @@ void printNode(struct node *head)
 void insertNode (int position ,int item, struct node **ptrtohead)
 {
     int i;
-    struct node *head = (*ptrtohead), *temp ;
-    temp = malloc(sizeof(struct node));
+    struct node *head = (*ptrtohead);
+    struct node* temp = malloc(sizeof(struct node));
     temp->item = item;
     if (position < 0 ) return;
-    if (position == 0 )
-    {
+
+    if (position == 0 ) {
         temp->nxt = head;
         *ptrtohead = temp;
-    }
-    else
-    {
-        for ( i=1 ; i<position;i++)
-        {
+    } else {
+        for ( i=1 ; i<position;i++) {
             head = head->nxt;
         }
         temp->nxt = head->nxt;
@@ -40,36 +45,38 @@ void insertNode (int position ,int item, struct node **ptrtohead)
 int main()
 {
     // Create Linked list
-    struct node *head= NULL, *temp, *constanthead;
+    struct node *current = NULL, *temp;
     int n ;
     int i ;
     int item;
-    struct node **ptrtohead = &head;
+    struct node* ptrtohead; /* declare a canvas of art that is blank(null) */
+
     scanf("%d", &n);
     getchar();
-    for ( i=0; i<n; i++)
-    {
-
-        if (i==0){
-            head = malloc(sizeof(struct node));
-            constanthead = head;
-        }
-        else{
-            temp = malloc(sizeof(struct node));
-            head->nxt= temp;
-            head = temp;
-        }
-        scanf("%d",&item);
+    for ( i=0; i<n; i++) {
+	/* C is a sequential language, so we scan user input first
+	 *  before deciding what to do with the values
+	 */
+        scanf("%d", &item);
         getchar();
-        head->item = item;
-        head->nxt = NULL;
+
+        if (i==0) {
+            current = malloc(sizeof(struct node));
+	    current->item = item;
+	    ptrtohead = current;
+        } else {
+            temp = malloc(sizeof(struct node));
+	    temp->item = item;
+            current->nxt= temp;
+            current = temp;
+        }
     }
     //Print link list
-    printNode(constanthead);
+    printList(ptrtohead);
     //Add a node
-    insertNode(0,10,ptrtohead);
+    insertNode(0, 99, &ptrtohead);
     //Print changed linked list
-    printNode(constanthead);
+    printList(ptrtohead);
 
 }
 
